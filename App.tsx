@@ -24,7 +24,11 @@ import {
   MessageCircle
 } from 'lucide-react';
 
-const PROFILE_IMAGE_URL = "/images/logo.jpg"; 
+// Importing image allows Vite to process it, add hashes, and move it to dist/assets
+import logoImg from './images/logo.jpg';
+// Placeholder projects images (assuming they exist in images/ folder)
+import p1Img from './images/p1.png';
+import p2Img from './images/p2.jpg';
 
 const SectionDecor = ({ type }: { type: 'dots' | 'lines' | 'circles' }) => {
   if (type === 'dots') {
@@ -121,7 +125,7 @@ const Hero = () => {
           <div className="relative z-10 w-64 h-64 lg:w-80 lg:h-80 rounded-3xl p-1 bg-gradient-to-br from-blue-500/40 via-emerald-500/20 to-blue-500/40 border border-white/10 shadow-2xl transition-all duration-700 group-hover:scale-[1.03] group-hover:rotate-1 group-hover:shadow-blue-500/20">
             <div className="w-full h-full bg-slate-950 rounded-[1.4rem] overflow-hidden relative">
               <img 
-                src={PROFILE_IMAGE_URL} 
+                src={logoImg} 
                 alt="Pham Thanh Hai" 
                 className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
                 onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x400/0f172a/ffffff?text=PTH"; }}
@@ -160,7 +164,7 @@ const Hero = () => {
             <a href="#contact" className="px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-600/20">
               Get in Touch
             </a>
-            <a href="https://github.com/hai-pham-theinfitech" target="_blank" className="px-10 py-5 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3">
+            <a href="https://github.com/phamthanhhai003" target="_blank" className="px-10 py-5 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3">
               <Github size={20} /> My Github
             </a>
           </div>
