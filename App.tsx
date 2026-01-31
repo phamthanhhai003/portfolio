@@ -176,9 +176,9 @@ const Hero = () => {
 const Experience = () => {
   const experiences = [
     {
-      company: "Solvitech Corporation",
+      company: "Amira Holdings JSC",
       role: "ETL & Infrastructure Engineer",
-      period: "Aug 2025 – Present",
+      period: "May 2024 – Aug 2025",
       bullets: [
         "Architecting end-to-end ETL pipelines using PySpark to process terabytes of data daily.",
         "Implementing distributed scraping clusters with Scrapy and Playwright for massive data extraction.",
@@ -187,9 +187,9 @@ const Experience = () => {
       ]
     },
     {
-      company: "Amira Holdings",
+      company: "Solvitech Corporation",
       role: "ETL & Data Specialist",
-      period: "May 2024 – Aug 2025",
+      period: "November 2025 - January 2026",
       bullets: [
         "Developed multi-source ingestion modules for diverse data formats (SQL, NoSQL, APIs).",
         "Applied Machine Learning techniques to normalize and clean raw data, improving quality by 30%.",
