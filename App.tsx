@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   Github, 
@@ -26,7 +25,6 @@ import {
 
 // Importing image allows Vite to process it, add hashes, and move it to dist/assets
 import logoImg from './images/logo.jpg';
-// Placeholder projects images (assuming they exist in images/ folder)
 import p1Img from './images/p1.png';
 import p2Img from './images/p2.jpg';
 
@@ -320,14 +318,14 @@ const Projects = () => {
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
       tech: ["PySpark", "Airflow", "K8s", "MongoDB"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
-      image: "/images/p1.png"
+      image: p1Img 
     },
     {
       title: "Fullstack Job Search Platform",
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
-      image: "/images/p2.jpg"
+      image: p2Img
     }
   ];
 
