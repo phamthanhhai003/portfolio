@@ -24,7 +24,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 
-const PROFILE_IMAGE_URL = "images/logo.jpg"; 
+const PROFILE_IMAGE_URL = "/images/logo.jpg"; 
 
 const SectionDecor = ({ type }: { type: 'dots' | 'lines' | 'circles' }) => {
   if (type === 'dots') {
@@ -316,14 +316,14 @@ const Projects = () => {
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
       tech: ["PySpark", "Airflow", "K8s", "MongoDB"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
-      image: "images/p1.png"
+      image: "/images/p1.png"
     },
     {
       title: "Fullstack Job Search Platform",
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
-      image: "images/p2.jpg"
+      image: "/images/p2.jpg"
     }
   ];
 
