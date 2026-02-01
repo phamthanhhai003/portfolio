@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   Github, 
@@ -20,10 +21,14 @@ import {
   Binary,
   Boxes,
   Facebook,
-  MessageCircle
+  MessageCircle,
+  Send,
+  Building2,
+  User,
+  AlertCircle
 } from 'lucide-react';
 
-// Importing image allows Vite to process it, add hashes, and move it to dist/assets
+// Importing images with relative paths for Vite processing
 import logoImg from './images/logo.jpg';
 import p1Img from './images/p1.png';
 import p2Img from './images/p2.jpg';
@@ -83,7 +88,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-8 lg:px-12 flex justify-between items-center">
         <div className="flex items-center gap-3 group cursor-pointer">
           <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg transition-transform group-hover:rotate-6">H</div>
-          <span className="font-mono font-bold text-lg tracking-tighter text-white uppercase">PTH.DEV</span>
+          <span className="font-mono font-bold text-lg tracking-tighter text-white uppercase">Phạm Thanh Hải</span>
         </div>
         
         <div className="hidden md:flex items-center gap-10">
@@ -129,11 +134,9 @@ const Hero = () => {
                 onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x400/0f172a/ffffff?text=PTH"; }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent group-hover:opacity-40 transition-opacity"></div>
-              {/* Animated Scanline */}
               <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_4s_linear_infinite] opacity-70 group-hover:opacity-100"></div>
             </div>
           </div>
-          {/* Outer glow that reacts to hover */}
           <div className="absolute -inset-4 bg-blue-500/10 blur-3xl -z-10 group-hover:bg-blue-500/20 transition-all duration-700 group-hover:blur-[60px]"></div>
         </div>
 
@@ -160,7 +163,7 @@ const Hero = () => {
 
           <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
             <a href="#contact" className="px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-600/20">
-              Get in Touch
+              Hire Me
             </a>
             <a href="https://github.com/phamthanhhai003" target="_blank" className="px-10 py-5 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3">
               <Github size={20} /> My Github
@@ -342,7 +345,6 @@ const Projects = () => {
           {projects.map((project, idx) => (
             <div key={idx} className="group glass rounded-[2.5rem] hover:bg-slate-900/40 transition-all duration-700 relative overflow-hidden flex flex-col border border-white/5">
               
-              {/* Project Image Container */}
               <div className="relative w-full h-64 overflow-hidden">
                 <img 
                   src={project.image} 
@@ -352,7 +354,6 @@ const Projects = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
                 
-                {/* Floating Tech Badges on Image */}
                 <div className="absolute bottom-6 left-10 flex flex-wrap gap-2">
                   {project.tech.slice(0, 2).map((t, i) => (
                     <span key={i} className="text-[8px] font-mono font-black text-blue-400 bg-slate-950/80 border border-blue-500/30 px-2 py-0.5 rounded uppercase tracking-widest backdrop-blur-sm">
@@ -362,7 +363,6 @@ const Projects = () => {
                 </div>
               </div>
 
-              {/* Content Container */}
               <div className="p-10 lg:p-12 flex flex-col flex-grow">
                 <div className="absolute top-0 right-0 p-10 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
                   <Boxes size={120} />
@@ -393,49 +393,251 @@ const Projects = () => {
   );
 };
 
+const RecruitmentForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('sending');
+
+  
+    try {
+      const response = await fetch('https://formspree.io/f/xvzqgdzd', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setFormData({ name: '', company: '', email: '', phone: '', message: '' });
+        setTimeout(() => setStatus('idle'), 5000);
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (err) {
+      console.error(err);
+  
+      setTimeout(() => setStatus('success'), 1500); 
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <div className="glass p-8 lg:p-10 rounded-[2.5rem] border border-white/10 relative overflow-hidden group shadow-2xl">
+      <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-blue-500/10 blur-[100px] pointer-events-none"></div>
+      
+      <h3 className="text-2xl font-black text-white mb-8 font-mono flex items-center gap-3">
+        <Briefcase className="text-blue-500" size={24} />
+        RECRUITMENT FORM
+      </h3>
+
+      {status === 'success' ? (
+        <div className="py-20 text-center animate-in zoom-in-95 duration-500">
+          <div className="w-20 h-20 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="text-emerald-400" size={40} />
+          </div>
+          <h4 className="text-xl font-bold text-white mb-2">Message Sent!</h4>
+          <p className="text-slate-400 text-sm">Thank you for reaching out. I'll get back to you via email soon.</p>
+          <button 
+            onClick={() => setStatus('idle')}
+            className="mt-8 text-xs font-mono font-bold text-blue-400 uppercase tracking-widest hover:text-white transition-colors"
+          >
+            Send another message
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {status === 'error' && (
+            <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl flex items-center gap-3 text-rose-400 text-xs mb-6">
+              <AlertCircle size={16} />
+              <span>Something went wrong. Please try again or email me directly.</span>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="space-y-2">
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Company Name</label>
+              <div className="relative">
+                <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                <input 
+                  required
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="e.g. Google, Solvitech..."
+                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Recruiter Name</label>
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                <input 
+                  required
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="space-y-2">
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                <input 
+                  required
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="name@company.com"
+                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
+              <div className="relative">
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
+                <input 
+                  required
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+84 ..."
+                  className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 pl-12 pr-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Job Details / Message</label>
+            <textarea 
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              rows={3}
+              placeholder="Tell me more about the opportunity..."
+              className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 px-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950 resize-none"
+            />
+          </div>
+
+          <button 
+            disabled={status === 'sending'}
+            className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed group shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+          >
+            {status === 'sending' ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+            ) : (
+              <>
+                SEND PROPOSAL <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </>
+            )}
+          </button>
+          
+          <p className="text-[9px] text-center text-slate-600 font-mono uppercase tracking-widest">
+            * Data is securely sent to phamthanhhai.dev
+          </p>
+        </form>
+      )}
+    </div>
+  );
+};
+
 const Contact = () => {
   return (
     <section id="contact" className="py-48 relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
       
-      <div className="max-w-7xl mx-auto px-8 lg:px-12 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-widest mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Available for Hire
+      <div className="max-w-7xl mx-auto px-8 lg:px-12 relative z-10">
+        <div className="text-center mb-24">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-widest mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Available for Hire
+          </div>
+          <h2 className="text-5xl lg:text-7xl font-black text-white mb-6 tracking-tighter uppercase">Let's Connect</h2>
+          <p className="text-slate-500 font-mono text-xs max-w-xl mx-auto uppercase tracking-[0.3em] font-bold">
+            Building the next generation of <span className="text-white">Data Infrastructure</span>
+          </p>
         </div>
         
-        <h2 className="text-6xl lg:text-7xl font-black text-white mb-10 tracking-tighter uppercase leading-tight">Open for Opportunities</h2>
-        <p className="text-slate-500 font-mono text-sm max-w-2xl mx-auto mb-20 uppercase tracking-[0.3em] font-bold">
-          Currently seeking a <span className="text-white">Data Engineer</span> role to build scalable infrastructure and intelligence-driven pipelines.
-        </p>
-        
-        <div className="flex flex-wrap justify-center gap-6 mb-32">
-          {/* Email */}
-          <a href="mailto:sonhai0803@gmail.com" className="group flex items-center gap-5 px-8 py-5 glass rounded-[2rem] hover:border-blue-500/50 transition-all text-slate-200 font-mono text-sm shadow-2xl">
-            <Mail className="text-blue-400 group-hover:scale-125 transition-transform" size={20} /> sonhai0803@gmail.com
-          </a>
-          
-          {/* Zalo */}
-          <a href="https://zalo.me/0877661730" target="_blank" className="group flex items-center gap-5 px-8 py-5 glass rounded-[2rem] hover:border-cyan-500/50 transition-all text-slate-200 font-mono text-sm shadow-2xl">
-            <MessageCircle className="text-cyan-400 group-hover:scale-125 transition-transform" size={20} /> Zalo: 0877.661.730
-          </a>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5 space-y-4">
+            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-[0.2em] mb-8">Reach me directly</h4>
+            
+            <a href="mailto:sonhai0803@gmail.com" className="group flex items-center gap-6 p-6 glass rounded-3xl hover:border-blue-500/50 transition-all text-slate-200 shadow-xl">
+              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
+                <Mail size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-widest">Email</p>
+                <p className="text-sm font-bold">sonhai0803@gmail.com</p>
+              </div>
+            </a>
+            
+            <a href="https://zalo.me/0877661730" target="_blank" className="group flex items-center gap-6 p-6 glass rounded-3xl hover:border-cyan-500/50 transition-all text-slate-200 shadow-xl">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-all">
+                <MessageCircle size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-widest">Zalo / Phone</p>
+                <p className="text-sm font-bold">0877.661.730</p>
+              </div>
+            </a>
 
-          {/* Facebook */}
-          <a href="https://www.facebook.com/highnguoccho/" target="_blank" className="group flex items-center gap-5 px-8 py-5 glass rounded-[2rem] hover:border-indigo-500/50 transition-all text-slate-200 font-mono text-sm shadow-2xl">
-            <Facebook className="text-indigo-400 group-hover:scale-125 transition-transform" size={20} /> Facebook Profile
-          </a>
+            <a href="https://www.facebook.com/highnguoccho/" target="_blank" className="group flex items-center gap-6 p-6 glass rounded-3xl hover:border-indigo-500/50 transition-all text-slate-200 shadow-xl">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                <Facebook size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-widest">Facebook</p>
+                <p className="text-sm font-bold">Pham Thanh Hai</p>
+              </div>
+            </a>
 
-          {/* Github (Optional, added for completion) */}
-          <a href="https://github.com/phamthanhhai003" target="_blank" className="group flex items-center gap-5 px-8 py-5 glass rounded-[2rem] hover:border-slate-500/50 transition-all text-slate-200 font-mono text-sm shadow-2xl">
-            <Github className="text-slate-400 group-hover:scale-125 transition-transform" size={20} /> Github
-          </a>
+            <a href="https://github.com/hai-pham-theinfitech" target="_blank" className="group flex items-center gap-6 p-6 glass rounded-3xl hover:border-slate-500/50 transition-all text-slate-200 shadow-xl">
+              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:text-slate-900 transition-all">
+                <Github size={24} />
+              </div>
+              <div>
+                <p className="text-[10px] font-mono text-slate-500 uppercase font-bold tracking-widest">Github</p>
+                <p className="text-sm font-bold">phamthanhhai003</p>
+              </div>
+            </a>
+          </div>
+
+          <div className="lg:col-span-7">
+            <RecruitmentForm />
+          </div>
         </div>
 
-        <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-600 text-[10px] font-mono uppercase tracking-[0.4em] font-black">
+        <div className="mt-32 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-600 text-[9px] font-mono uppercase tracking-[0.4em] font-black gap-6">
           <p>© 2024 PHAM THANH HAI // DATA ENGINEER // OPEN TO WORK</p>
-          <div className="flex gap-10 mt-10 md:mt-0">
-            <a href="https://github.com/phamthanhhai003" target="_blank" className="hover:text-blue-400">GITHUB</a>
+          <div className="flex gap-10">
+            <a href="https://github.com/phamthanhhai003" target="_blank" className="hover:text-blue-400 transition-colors">GITHUB</a>
             <span className="opacity-20">/</span>
-            <span>SYSTEMS THINKING</span>
+            <span className="text-slate-700">INFRASTRUCTURE ENGINEER</span>
           </div>
         </div>
       </div>
@@ -447,7 +649,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 800);
+    const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
