@@ -252,12 +252,12 @@ const Experience = () => {
 
 const Skills = () => {
   const skillGroups = [
-    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Iceberg"], icon: <Database size={18}/> },
+    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format"], icon: <Database size={18}/> },
     { title: "Workflow", color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash"], icon: <Zap size={18}/> },
     { title: "Extraction", color: "cyan", skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning"], icon: <Layers size={18}/> },
-    { title: "Storage", color: "purple", skills: ["PostgreSQL", "MongoDB", "Redis", "Elastic", "ClickHouse"], icon: <Server size={18}/> },
+    { title: "Storage", color: "purple", skills: ["PostgreSQL", "Redis", "Elastic", "ClickHouse"], icon: <Server size={18}/> },
     { title: "Apps & AI", color: "amber", skills: ["FastAPI", "Python OOP", "Django", "Scikit-Learn", "LLM/RAG"], icon: <Atom size={18}/> },
-    { title: "Infra", color: "rose", skills: ["Kubernetes", "Helm", "Nginx", "Linux", "Git"], icon: <Globe size={18}/> }
+    { title: "Infra", color: "rose", skills: ["Kubernetes", "Linux", "Git"], icon: <Globe size={18}/> }
   ];
 
   const getColorClasses = (color: string) => {
@@ -319,7 +319,7 @@ const Projects = () => {
     {
       title: "Multi-Source Data Hub",
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
-      tech: ["PySpark", "Airflow", "K8s", "MongoDB"],
+      tech: ["PySpark", "Airflow", "Docker", "PostgreSQL", "Trino", "Superset"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
       image: p1Img 
     },
