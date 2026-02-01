@@ -321,6 +321,7 @@ const Projects = () => {
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
       tech: ["PySpark", "Airflow", "Docker", "PostgreSQL", "Trino", "Superset"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
+      demo: null,
       image: p1Img 
     },
     {
@@ -328,6 +329,7 @@ const Projects = () => {
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
+      demo: "https://job-portal-livid-delta.vercel.app",
       image: p2Img
     }
   ];
@@ -376,13 +378,22 @@ const Projects = () => {
                   {project.desc}
                 </p>
 
-                <div className="mt-auto flex items-center gap-6">
+                <div className="mt-auto flex flex-wrap items-center gap-4">
                   <a href={project.link} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
                     <Github size={16} /> REPOSITORY
                   </a>
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-blue-400 transition-all cursor-pointer border border-white/5">
-                    <ExternalLink size={20} />
-                  </div>
+                  
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
+                      <Globe size={16} /> LIVE DEMO
+                    </a>
+                  )}
+
+                  {!project.demo && (
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-blue-400 transition-all cursor-pointer border border-white/5">
+                      <ExternalLink size={20} />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -407,7 +418,7 @@ const RecruitmentForm = () => {
     e.preventDefault();
     setStatus('sending');
 
-  
+
     try {
       const response = await fetch('https://formspree.io/f/xvzqgdzd', {
         method: 'POST',
@@ -427,7 +438,6 @@ const RecruitmentForm = () => {
       }
     } catch (err) {
       console.error(err);
-  
       setTimeout(() => setStatus('success'), 1500); 
     }
   };
