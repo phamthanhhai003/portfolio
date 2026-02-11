@@ -201,6 +201,14 @@ const Experience = () => {
         "Built comprehensive real-time dashboards with Apache Superset for operational monitoring.",
         "Managed Dockerized environments for seamless service deployment and scaling."
       ]
+    },
+    {
+      company: "JITS Innovation Labs",
+      role: "Data Engineer",
+      period: "February 2026 - Present",
+      bullets: [
+        "Do not have any of experience yet."
+      ]
     }
   ];
 
