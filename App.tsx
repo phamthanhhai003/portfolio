@@ -33,6 +33,11 @@ import logoImg from './images/logo.jpg';
 import p1Img from './images/p1.png';
 import p2Img from './images/p2.jpg';
 
+import logoAmira from './logo/amira.jpg';
+import logoSolvitech from './logo/solvitech.jpg';
+import logoJits from './logo/jits.jpg';
+
+
 const SectionDecor = ({ type }: { type: 'dots' | 'lines' | 'circles' }) => {
   if (type === 'dots') {
     return (
@@ -133,7 +138,7 @@ const Hero = () => {
                 className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110" 
                 onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x400/0f172a/ffffff?text=PTH"; }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent group-hover:opacity-40 transition-opacity"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent group-hover:opacity-20 transition-opacity"></div>
               <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.8)] animate-[scan_4s_linear_infinite] opacity-70 group-hover:opacity-100"></div>
             </div>
           </div>
@@ -181,20 +186,21 @@ const Hero = () => {
 const Experience = () => {
   const experiences = [
     {
-      company: "Amira Holdings JSC",
-      role: "ETL & Infrastructure Engineer",
-      period: "May 2024 – Aug 2025",
+      company: "JITS Innovation Labs",
+      logo: logoJits,
+      role: "Data Engineer",
+      period: "February 2026 - Present",
+      isOnboard: true, // Thêm flag để thể hiện đang làm việc tại đây
       bullets: [
-        "Architecting end-to-end ETL pipelines using PySpark to process terabytes of data daily.",
-        "Implementing distributed scraping clusters with Scrapy and Playwright for massive data extraction.",
-        "Engineering cloud-native infrastructure using Kubernetes, Helm, and MinIO for data storage.",
-        "Orchestrating complex data workflows with Apache Airflow to ensure 99.9% pipeline reliability."
+        "Currently being trained in a 6-month intensive data engineering program, focusing on high-performance data processing, PySpark, Airflow, and cloud-native stack."
       ]
     },
     {
       company: "Solvitech Corporation",
+      logo: logoSolvitech,
       role: "ETL & Data Specialist",
       period: "November 2025 - January 2026",
+      isOnboard: false,
       bullets: [
         "Developed multi-source ingestion modules for diverse data formats (SQL, NoSQL, APIs).",
         "Applied Machine Learning techniques to normalize and clean raw data, improving quality by 30%.",
@@ -203,11 +209,16 @@ const Experience = () => {
       ]
     },
     {
-      company: "JITS Innovation Labs",
-      role: "Data Engineer",
-      period: "February 2026 - Present",
+      company: "Amira Holdings JSC",
+      logo: logoAmira,
+      role: "ETL & Infrastructure Engineer",
+      period: "May 2024 – Aug 2025",
+      isOnboard: false,
       bullets: [
-        "Do not have any of experience yet."
+        "Architecting end-to-end ETL pipelines using PySpark to process terabytes of data daily.",
+        "Implementing distributed scraping clusters with Scrapy and Playwright for massive data extraction.",
+        "Engineering cloud-native infrastructure using Kubernetes, Helm, and MinIO for data storage.",
+        "Orchestrating complex data workflows with Apache Airflow to ensure 99.9% pipeline reliability."
       ]
     }
   ];
@@ -226,17 +237,41 @@ const Experience = () => {
           
           {experiences.map((exp, idx) => (
             <div key={idx} className="relative group">
-              <div className="absolute -left-[35px] top-2 w-4 h-4 rounded-full bg-slate-950 border-2 border-blue-500 z-10 shadow-[0_0_15px_rgba(59,130,246,0.6)] group-hover:scale-125 transition-all"></div>
+              {/* Glowing Node on Timeline - Cập nhật logic sáng dựa trên exp.isOnboard */}
+              <div className={`absolute -left-[35px] top-2 w-4 h-4 rounded-full bg-slate-950 border-2 ${exp.isOnboard ? 'border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)]' : 'border-slate-700'} z-10 group-hover:scale-125 transition-all flex items-center justify-center`}>
+                {/* Pulsing Core - Chỉ sáng mạnh khi đang onboard */}
+                <div className={`w-1.5 h-1.5 ${exp.isOnboard ? 'bg-blue-400 animate-pulse shadow-[0_0_8px_rgba(96,165,250,0.8)]' : 'bg-slate-700'} rounded-full`}></div>
+                {/* Outer Ping - Hiệu ứng tỏa tròn chỉ dành cho onboard */}
+                {exp.isOnboard && (
+                  <div className="absolute inset-0 rounded-full bg-blue-500 opacity-40 animate-ping"></div>
+                )}
+              </div>
               
-              <div className="glass p-10 rounded-3xl hover:border-blue-500/30 transition-all duration-500">
+              <div className={`glass p-10 rounded-3xl hover:border-blue-500/30 transition-all duration-500 ${exp.isOnboard ? 'border-blue-500/10 bg-blue-500/[0.02]' : ''}`}>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-                  <div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">{exp.role}</h3>
-                    <p className="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest mt-2">
-                       {exp.company}
-                    </p>
+                  <div className="flex items-center gap-5">
+                    {/* Fixed Size Logo Container */}
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden bg-slate-900 border border-white/10 flex-shrink-0 flex items-center justify-center p-0 shadow-lg">
+                      <img 
+                        src={exp.logo} 
+                        alt={exp.company} 
+                        className="w-full h-full object-cover"
+                        onError={(e) => { e.currentTarget.src = `https://api.dicebear.com/7.x/initials/svg?seed=${exp.company}&backgroundColor=1e293b`; }}
+                      />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors leading-tight">{exp.role}</h3>
+                        {exp.isOnboard && (
+                          <span className="flex h-2 w-2 rounded-full bg-blue-500 animate-pulse"></span>
+                        )}
+                      </div>
+                      <p className="text-emerald-400 font-mono text-xs font-bold uppercase tracking-widest mt-1">
+                         {exp.company}
+                      </p>
+                    </div>
                   </div>
-                  <div className="px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400 font-mono font-bold text-[10px] uppercase">
+                  <div className={`px-4 py-2 border rounded-xl font-mono font-bold text-[10px] uppercase whitespace-nowrap ${exp.isOnboard ? 'bg-blue-500/20 border-blue-500/40 text-blue-300' : 'bg-blue-500/10 border-blue-500/20 text-blue-400'}`}>
                     {exp.period}
                   </div>
                 </div>
@@ -333,7 +368,7 @@ const Projects = () => {
       image: p1Img 
     },
     {
-      title: "Fullstack Job Search Platform",
+      title: "Fullstack Job Search Platform", 
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
@@ -365,7 +400,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
                 
                 <div className="absolute bottom-6 left-10 flex flex-wrap gap-2">
-                  {project.tech.slice(0, 7).map((t, i) => (
+                  {project.tech.map((t, i) => (
                     <span key={i} className="text-[8px] font-mono font-black text-blue-400 bg-slate-950/80 border border-blue-500/30 px-2 py-0.5 rounded uppercase tracking-widest backdrop-blur-sm">
                       {t}
                     </span>
@@ -395,12 +430,6 @@ const Projects = () => {
                     <a href={project.demo} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
                       <Globe size={16} /> LIVE DEMO
                     </a>
-                  )}
-
-                  {!project.demo && (
-                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-slate-400 hover:text-blue-400 transition-all cursor-pointer border border-white/5">
-                      <ExternalLink size={20} />
-                    </div>
                   )}
                 </div>
               </div>
