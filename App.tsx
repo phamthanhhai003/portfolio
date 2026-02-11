@@ -327,7 +327,7 @@ const Projects = () => {
     {
       title: "Multi-Source Data Hub",
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
-      tech: ["PySpark", "Airflow", "Docker", "PostgreSQL", "Trino", "Superset"],
+      tech: ["PySpark", "Airflow", "Docker", "PostgreSQL", "Trino", "Superset", "Large Language Models"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
       demo: null,
       image: p1Img 
@@ -365,7 +365,7 @@ const Projects = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60"></div>
                 
                 <div className="absolute bottom-6 left-10 flex flex-wrap gap-2">
-                  {project.tech.slice(0, 5).map((t, i) => (
+                  {project.tech.slice(0, 7).map((t, i) => (
                     <span key={i} className="text-[8px] font-mono font-black text-blue-400 bg-slate-950/80 border border-blue-500/30 px-2 py-0.5 rounded uppercase tracking-widest backdrop-blur-sm">
                       {t}
                     </span>
