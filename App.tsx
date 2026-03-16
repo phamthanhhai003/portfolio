@@ -295,7 +295,7 @@ const Experience = () => {
 
 const Skills = () => {
   const skillGroups = [
-    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format"], icon: <Database size={18}/> },
+    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio"], icon: <Database size={18}/> },
     { title: "Workflow", color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash"], icon: <Zap size={18}/> },
     { title: "Extraction", color: "cyan", skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning"], icon: <Layers size={18}/> },
     { title: "Storage", color: "purple", skills: ["PostgreSQL", "Redis", "Elastic", "ClickHouse"], icon: <Server size={18}/> },
