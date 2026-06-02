@@ -192,7 +192,11 @@ const Experience = () => {
       period: "February 2026 - Present",
       isOnboard: true, // Thêm flag để thể hiện đang làm việc tại đây
       bullets: [
-        "Currently being trained in a 6-month intensive data engineering program, focusing on high-performance data processing, PySpark, Airflow, and cloud-native stack."
+        "Developed dbt transformation flows for banking financial reporting pipelines, ensuring data accuracy and traceability.",
+        "Optimized Kubernetes infrastructure and CI/CD pipelines; contributed to system architecture design for enterprise data platforms.",
+        "Collaborated directly with foreign clients at Central Banks (Timor-Leste, Myanmar), including onsite visits abroad to gather requirements and deliver data solutions.",
+        "Applied AI Agents (Claude) for document management automation and accelerating data pipeline development workflows.",
+        "Extracted and normalized data from T24 core banking system using Apache Spark and Airbyte CDC for downstream analytics."
       ]
     },
     {
@@ -295,12 +299,12 @@ const Experience = () => {
 
 const Skills = () => {
   const skillGroups = [
-    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio"], icon: <Database size={18}/> },
-    { title: "Workflow", color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash"], icon: <Zap size={18}/> },
+    { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio", "Data Build Tool"], icon: <Database size={18}/> },
+    { title: "Workflow", color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash" ], icon: <Zap size={18}/> },
     { title: "Extraction", color: "cyan", skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning"], icon: <Layers size={18}/> },
     { title: "Storage", color: "purple", skills: ["PostgreSQL", "Redis", "Elastic", "ClickHouse"], icon: <Server size={18}/> },
-    { title: "Apps & AI", color: "amber", skills: ["FastAPI", "Python OOP", "Django", "Scikit-Learn", "LLM/RAG"], icon: <Atom size={18}/> },
-    { title: "Infra", color: "rose", skills: ["Kubernetes", "Linux", "Git"], icon: <Globe size={18}/> }
+    { title: "Apps & AI", color: "amber", skills: ["FastAPI", "Python OOP", "Django", "Scikit-Learn", "LLM/RAG", "AI Agent (Claude)"], icon: <Atom size={18}/> },
+    { title: "Infra", color: "rose", skills: ["Kubernetes", "Linux", "Git", "Jenkins"], icon: <Globe size={18}/> }
   ];
 
   const getColorClasses = (color: string) => {
