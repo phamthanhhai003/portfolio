@@ -465,6 +465,10 @@ const Projects = () => {
     }
   ];
 
+  const p0 = projects[0];
+  const p1 = projects[1];
+  const p2 = projects[2];
+
   return (
     <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-8 lg:px-12">
@@ -474,19 +478,126 @@ const Projects = () => {
           <div className="h-1 w-12 bg-blue-700 dark:bg-blue-500 mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-7">
-          {projects.map((project, idx) => (
-            <div key={idx} className="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-slate-900 transition-shadow duration-300 flex flex-col">
-              <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-700">
+        <div className="flex flex-col gap-7">
+
+          {/* Connected card: Data Hub → Job Search Platform */}
+          <div className="bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-slate-900 transition-shadow duration-300">
+            {/* Pipeline header */}
+            <div className="flex items-center gap-3 px-7 py-3.5 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-200 dark:border-blue-700">
+              <span className="text-[9px] font-mono font-black text-blue-700 dark:text-blue-400 uppercase tracking-[0.3em]">
+                {lang === 'vi' ? 'Hệ thống End-to-End · Thu thập → Hiển thị' : 'End-to-End Pipeline · Collect → Serve'}
+              </span>
+              <div className="flex-1 flex items-center gap-1 overflow-hidden">
+                {['ETL', '→', 'Transform', '→', 'API', '→', 'UI'].map((s, i) => (
+                  <span key={i} className={`text-[8px] font-mono font-bold whitespace-nowrap ${s === '→' ? 'text-blue-300 dark:text-blue-600' : 'text-blue-500 dark:text-blue-400'}`}>{s}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Two screenshots side by side */}
+            <div className="flex flex-col lg:flex-row">
+              {/* Left: Data Hub */}
+              <div className="flex-1 flex flex-col">
+                <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-700">
+                  <img src={p0.image} alt={p0.title} className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Data+Hub"; }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 left-4 flex flex-wrap gap-1">
+                    {p0.tech.map((tech, i) => (
+                      <span key={i} className="text-[7px] font-mono font-bold text-white bg-slate-900/80 px-1.5 py-0.5 rounded uppercase border border-white/10">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[8px] font-mono font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700 px-2 py-0.5 rounded uppercase tracking-widest">
+                      {lang === 'vi' ? 'Nguồn dữ liệu' : 'Data Source'}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+                    {lang === 'vi' ? p0.titleVi : p0.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow mb-4">
+                    {lang === 'vi' ? p0.descVi : p0.desc}
+                  </p>
+                  <a href={p0.link} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-all shadow-sm w-fit">
+                    <Github size={12} /> {t.repository}
+                  </a>
+                </div>
+              </div>
+
+              {/* Arrow connector */}
+              <div className="flex lg:flex-col items-center justify-center px-2 py-4 lg:py-0 gap-1">
+                <div className="hidden lg:flex flex-col items-center gap-1">
+                  <div className="w-px h-8 bg-blue-200 dark:bg-blue-700"></div>
+                  <div className="text-[8px] font-mono font-black text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-700 px-2 py-1 rounded-lg text-center whitespace-nowrap">
+                    feeds data
+                  </div>
+                  <div className="w-px h-4 bg-blue-200 dark:bg-blue-700"></div>
+                  <div className="text-blue-400 dark:text-blue-500 text-lg">↓</div>
+                </div>
+                <div className="flex lg:hidden items-center gap-1">
+                  <div className="h-px w-6 bg-blue-200 dark:bg-blue-700"></div>
+                  <div className="text-[8px] font-mono font-black text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/40 border border-blue-200 dark:border-blue-700 px-2 py-1 rounded-lg">
+                    feeds →
+                  </div>
+                  <div className="h-px w-6 bg-blue-200 dark:bg-blue-700"></div>
+                </div>
+              </div>
+
+              {/* Right: Job Search Platform */}
+              <div className="flex-1 flex flex-col">
+                <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-700">
+                  <img src={p1.image} alt={p1.title} className="w-full h-full object-cover"
+                    onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Job+Portal"; }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 left-4 flex flex-wrap gap-1">
+                    {p1.tech.map((tech, i) => (
+                      <span key={i} className="text-[7px] font-mono font-bold text-white bg-slate-900/80 px-1.5 py-0.5 rounded uppercase border border-white/10">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[8px] font-mono font-black text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 px-2 py-0.5 rounded uppercase tracking-widest">
+                      {lang === 'vi' ? 'Sản phẩm' : 'Product'}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+                    {lang === 'vi' ? p1.titleVi : p1.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow mb-4">
+                    {lang === 'vi' ? p1.descVi : p1.desc}
+                  </p>
+                  <div className="flex gap-3">
+                    <a href={p1.link} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-all shadow-sm">
+                      <Github size={12} /> {t.repository}
+                    </a>
+                    {p1.demo && (
+                      <a href={p1.demo} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-all">
+                        <Globe size={12} /> {t.liveDemoLabel}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ElectroShop card — standalone */}
+          {(() => {
+            const project = p2;
+            const idx = 2;
+            return (
+            <div className="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-slate-900 transition-shadow duration-300 flex flex-col lg:flex-row">
+              <div className="relative lg:w-80 h-52 lg:h-auto overflow-hidden bg-slate-100 dark:bg-slate-700 flex-shrink-0">
                 <img src={project.image} alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Project"; }} />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-3 left-4 flex flex-wrap gap-1.5">
+                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-4 lg:bottom-4 flex flex-wrap gap-1.5">
                   {project.tech.map((tech, i) => (
-                    <span key={i} className="text-[8px] font-mono font-bold text-white bg-slate-900/70 backdrop-blur-sm px-2 py-0.5 rounded uppercase tracking-wide border border-white/10">
-                      {tech}
-                    </span>
+                    <span key={i} className="text-[7px] font-mono font-bold text-white bg-slate-900/70 backdrop-blur-sm px-1.5 py-0.5 rounded uppercase border border-white/10">{tech}</span>
                   ))}
                 </div>
               </div>
@@ -528,7 +639,9 @@ const Projects = () => {
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })()}
+
         </div>
       </div>
     </section>
