@@ -32,6 +32,7 @@ import {
 import logoImg from './images/logo.jpg';
 import p1Img from './images/p1.png';
 import p2Img from './images/p2.jpg';
+import p3Img from './images/p3.png';
 
 import logoAmira from './logo/amira.jpg';
 import logoSolvitech from './logo/solvitech.jpg';
@@ -190,7 +191,7 @@ const Experience = () => {
       logo: logoJits,
       role: "Data Engineer",
       period: "February 2026 - Present",
-      isOnboard: true, // Thêm flag để thể hiện đang làm việc tại đây
+      isOnboard: true,
       bullets: [
         "Developed dbt transformation flows for banking financial reporting pipelines, ensuring data accuracy and traceability.",
         "Optimized Kubernetes infrastructure and CI/CD pipelines; contributed to system architecture design for enterprise data platforms.",
@@ -372,12 +373,23 @@ const Projects = () => {
       image: p1Img 
     },
     {
-      title: "Fullstack Job Search Platform", 
+      title: "Fullstack Job Search Platform",
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
       demo: "https://job-portal-livid-delta.vercel.app",
       image: p2Img
+    },
+    {
+      title: "ElectroShop E-Commerce Platform",
+      desc: "Architected an AI-driven build system: 13 sequential skill files guide Claude Agent through the full SDLC, enforced by 10 bash hooks validating security, business logic, and state transitions at each checkpoint.",
+      tech: ["Node.js", "Express", "MySQL", "Docker", "Gemini AI", "VNPay", "Scrapy"],
+      link: "https://github.com/hudeeeeee/skills-hooks-agent",
+      linkLabel: "AI Dev Tools",
+      demo: "https://github.com/hudeeeeee/website",
+      demoLabel: "Product Source",
+      image: p3Img,
+      quickRun: `curl -fsSL https://raw.githubusercontent.com/hudeeeeee/website/main/setup.sh | bash`
     }
   ];
 
@@ -421,18 +433,37 @@ const Projects = () => {
                   {project.title}
                 </h3>
                 
-                <p className="text-slate-400 text-sm mb-12 leading-relaxed font-medium flex-grow">
+                <p className="text-slate-400 text-sm mb-8 leading-relaxed font-medium flex-grow">
                   {project.desc}
                 </p>
 
+                {(project as any).quickRun && (
+                  <div className="mb-8 rounded-2xl bg-slate-950/80 border border-emerald-500/20 overflow-hidden">
+                    <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/5 bg-white/[0.02]">
+                      <span className="text-[9px] font-mono font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2">
+                        <TerminalIcon size={11} /> Quick Run — no clone needed ( docker requires )
+                      </span>
+                      <button
+                        onClick={() => navigator.clipboard.writeText((project as any).quickRun)}
+                        className="text-[8px] font-mono text-slate-500 hover:text-emerald-400 transition-colors uppercase tracking-widest"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <pre className="px-5 py-4 text-[10px] font-mono text-slate-300 leading-relaxed whitespace-pre overflow-x-auto">
+                      {(project as any).quickRun}
+                    </pre>
+                  </div>
+                )}
+
                 <div className="mt-auto flex flex-wrap items-center gap-4">
                   <a href={project.link} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
-                    <Github size={16} /> REPOSITORY
+                    <Github size={16} /> {(project as any).linkLabel ?? 'REPOSITORY'}
                   </a>
-                  
+
                   {project.demo && (
                     <a href={project.demo} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
-                      <Globe size={16} /> LIVE DEMO
+                      <Globe size={16} /> {(project as any).demoLabel ?? 'LIVE DEMO'}
                     </a>
                   )}
                 </div>
