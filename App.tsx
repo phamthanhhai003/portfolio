@@ -39,6 +39,107 @@ import logoSolvitech from './logo/solvitech.jpg';
 import logoJits from './logo/jits.jpg';
 
 
+type Lang = 'en' | 'vi';
+const LanguageContext = React.createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} });
+const useLang = () => React.useContext(LanguageContext);
+
+const translations = {
+  en: {
+    nav: ['About', 'Experience', 'Skills', 'Projects', 'Contact'],
+    badge: 'Data Engineering Specialist',
+    bio: <>Dedicated Data Engineer focused on building <span className="text-white">scalable data pipelines</span> and robust backend systems. Expert in <span className="text-white">ETL/ELT processes</span>, distributed web scraping, and <span className="text-white">cloud-native infrastructure</span> (Kubernetes/MinIO). I specialize in transforming complex raw data into high-quality assets for business intelligence.</>,
+    hireMe: 'Hire Me',
+    myGithub: 'My Github',
+    expTitle: 'Experience',
+    skillsTitle: 'Tech Stack',
+    skillsSub: 'Core Engineering Expertise',
+    projectsTitle: 'Selected Works',
+    repository: 'REPOSITORY',
+    liveDemoLabel: 'LIVE DEMO',
+    quickRunLabel: 'Quick Run — no clone needed',
+    copy: 'Copy',
+    copied: 'Copied!',
+    contactBadge: 'Available for Hire',
+    contactTitle: "Let's Connect",
+    contactSub: <>Building the next generation of <span className="text-white">Data Infrastructure</span></>,
+    reachMe: 'Reach me directly',
+    formTitle: 'RECRUITMENT FORM',
+    formCompany: 'Company Name',
+    formName: 'Recruiter Name',
+    formEmail: 'Email Address',
+    formPhone: 'Phone Number',
+    formMessage: 'Job Details / Message',
+    formPlaceholderMessage: 'Tell me more about the opportunity...',
+    formSend: 'SEND PROPOSAL',
+    formSuccess: "Message Sent!",
+    formSuccessSub: "Thank you for reaching out. I'll get back to you via email soon.",
+    formSendAnother: 'Send another message',
+    formError: 'Something went wrong. Please try again or email me directly.',
+    formNote: '* Data is securely sent to phamthanhhai.dev',
+    footer: '© 2024 PHAM THANH HAI // DATA ENGINEER // OPEN TO WORK',
+  },
+  vi: {
+    nav: ['Giới thiệu', 'Kinh nghiệm', 'Kỹ năng', 'Dự án', 'Liên hệ'],
+    badge: 'Chuyên gia Data Engineering',
+    bio: <>Là một Data Engineer, công việc xây dựng các hệ thống dữ liệu <span className="text-white">ổn định, có khả năng mở rộng</span> và phục vụ tốt cho nhu cầu phân tích. Em có kinh nghiệm làm việc với <span className="text-white">ETL/ELT</span>, dữ liệu phân tán và hạ tầng <span className="text-white">cloud-native</span> như Kubernetes, MinIO. Em luôn hướng đến việc biến dữ liệu thô thành những nguồn dữ liệu rõ ràng, chất lượng và hữu ích cho việc ra quyết định.</>,
+    hireMe: 'Liên hệ ngay',
+    myGithub: 'Github của em',
+    expTitle: 'Kinh nghiệm',
+    skillsTitle: 'Công nghệ',
+    skillsSub: 'Chuyên môn kỹ thuật cốt lõi',
+    projectsTitle: 'Dự án nổi bật',
+    repository: 'MÃ NGUỒN',
+    liveDemoLabel: 'XEM DEMO',
+    quickRunLabel: 'Chạy thử ngay — không cần clone',
+    copy: 'Sao chép',
+    copied: 'Đã sao chép!',
+    contactBadge: 'Đang tìm kiếm cơ hội mới',
+    contactTitle: 'Liên hệ với em',
+    contactSub: <>Em sẵn sàng đồng hành cùng <span className="text-white">đội ngũ của Anh/Chị</span></>,
+    reachMe: 'Liên hệ trực tiếp qua',
+    formTitle: 'FORM TUYỂN DỤNG',
+    formCompany: 'Tên công ty',
+    formName: 'Tên nhà tuyển dụng',
+    formEmail: 'Địa chỉ Email',
+    formPhone: 'Số điện thoại',
+    formMessage: 'Thông tin công việc / Lời nhắn',
+    formPlaceholderMessage: 'Cho em biết thêm về cơ hội này...',
+    formSend: 'GỬI ĐỀ XUẤT',
+    formSuccess: 'Đã gửi thành công!',
+    formSuccessSub: 'Cảm ơn Anh/Chị đã liên hệ. Em sẽ phản hồi sớm nhất có thể.',
+    formSendAnother: 'Gửi lại',
+    formError: 'Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ trực tiếp qua email.',
+    formNote: '* Dữ liệu được gửi bảo mật đến phamthanhhai.dev',
+    footer: '© 2024 PHẠM THANH HẢI // DATA ENGINEER // SẴN SÀNG NHẬN VIỆC',
+  }
+};
+
+const LanguagePopup = ({ onSelect }: { onSelect: (l: Lang) => void }) => (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-300">
+    <div className="glass border border-white/10 rounded-[2.5rem] p-12 max-w-sm w-full mx-6 shadow-2xl flex flex-col items-center gap-8 animate-in zoom-in-95 duration-300">
+      <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg">H</div>
+      <div className="text-center">
+        <h2 className="text-2xl font-black text-white tracking-tighter mb-2">Choose Language</h2>
+        <p className="text-slate-500 text-xs font-mono uppercase tracking-widest">Chọn ngôn ngữ hiển thị</p>
+      </div>
+      <div className="flex gap-4 w-full">
+        <button
+          onClick={() => onSelect('en')}
+          className="flex-1 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold font-mono text-sm transition-all hover:-translate-y-0.5 shadow-lg shadow-blue-600/20"
+        >
+          🇬🇧 English
+        </button>
+        <button
+          onClick={() => onSelect('vi')}
+          className="flex-1 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold font-mono text-sm transition-all hover:-translate-y-0.5"
+        >
+          🇻🇳 Tiếng Việt
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
 const SectionDecor = ({ type }: { type: 'dots' | 'lines' | 'circles' }) => {
   if (type === 'dots') {
     return (
@@ -74,6 +175,8 @@ const Skeleton = () => (
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const { lang, setLang } = useLang();
+  const t = translations[lang];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -81,13 +184,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
-  ];
+  const hrefs = ['#about', '#experience', '#skills', '#projects', '#contact'];
+  const navLinks = t.nav.map((name, i) => ({ name, href: hrefs[i] }));
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled ? 'py-4 bg-slate-950/80 backdrop-blur-xl border-b border-white/5' : 'py-8 bg-transparent'}`}>
@@ -104,6 +202,12 @@ const Navbar = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-blue-500 transition-all group-hover:w-full"></span>
             </a>
           ))}
+          <button
+            onClick={() => setLang(lang === 'en' ? 'vi' : 'en')}
+            className="text-[10px] font-mono font-bold px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-all uppercase tracking-widest"
+          >
+            {lang === 'en' ? '🇻🇳 VI' : '🇬🇧 EN'}
+          </button>
         </div>
 
         <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-slate-400 p-2">
@@ -125,6 +229,8 @@ const Navbar = () => {
 };
 
 const Hero = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
   return (
     <section id="about" className="relative pt-48 pb-32 overflow-hidden">
       <SectionDecor type="lines" />
@@ -148,7 +254,7 @@ const Hero = () => {
 
         <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
           <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-[0.3em] mb-8">
-            <Cpu size={12} /> Data Engineering Specialist
+            <Cpu size={12} /> {t.badge}
           </div>
           
           <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tighter mb-8">
@@ -164,15 +270,15 @@ const Hero = () => {
           </div>
 
           <p className="text-base lg:text-lg text-slate-400 max-w-2xl mb-12 leading-relaxed font-medium">
-            Dedicated Data Engineer focused on building <span className="text-white">scalable data pipelines</span> and robust backend systems. Expert in <span className="text-white">ETL/ELT processes</span>, distributed web scraping, and <span className="text-white">cloud-native infrastructure</span> (Kubernetes/MinIO). I specialize in transforming complex raw data into high-quality assets for business intelligence.
+            {t.bio}
           </p>
 
           <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
             <a href="#contact" className="px-10 py-5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-600/20">
-              Hire Me
+              {t.hireMe}
             </a>
             <a href="https://github.com/phamthanhhai003" target="_blank" className="px-10 py-5 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-3">
-              <Github size={20} /> My Github
+              <Github size={20} /> {t.myGithub}
             </a>
           </div>
         </div>
@@ -185,6 +291,8 @@ const Hero = () => {
 };
 
 const Experience = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
   const experiences = [
     {
       company: "JITS Innovation Labs",
@@ -198,6 +306,13 @@ const Experience = () => {
         "Collaborated directly with foreign clients at Central Banks (Timor-Leste, Myanmar), including onsite visits abroad to gather requirements and deliver data solutions.",
         "Applied AI Agents (Claude) for document management automation and accelerating data pipeline development workflows.",
         "Extracted and normalized data from T24 core banking system using Apache Spark and Airbyte CDC for downstream analytics."
+      ],
+      bulletsVi: [
+        "Phát triển luồng chuyển đổi dbt cho pipeline báo cáo tài chính ngân hàng, đảm bảo độ chính xác và khả năng truy xuất dữ liệu.",
+        "Tối ưu hạ tầng Kubernetes và CI/CD; đóng góp thiết kế kiến trúc hệ thống cho nền tảng dữ liệu doanh nghiệp.",
+        "Làm việc trực tiếp với khách hàng nước ngoài tại Ngân hàng Trung ương (Timor-Leste, Myanmar), bao gồm công tác onsite nước ngoài để thu thập yêu cầu và triển khai giải pháp.",
+        "Ứng dụng AI Agent (Claude) tự động hóa quản lý tài liệu và tăng tốc quy trình phát triển pipeline dữ liệu.",
+        "Trích xuất và chuẩn hóa dữ liệu từ core banking T24 bằng Apache Spark và Airbyte CDC phục vụ phân tích downstream."
       ]
     },
     {
@@ -211,6 +326,12 @@ const Experience = () => {
         "Applied Machine Learning techniques to normalize and clean raw data, improving quality by 30%.",
         "Built comprehensive real-time dashboards with Apache Superset for operational monitoring.",
         "Managed Dockerized environments for seamless service deployment and scaling."
+      ],
+      bulletsVi: [
+        "Phát triển module nhập dữ liệu đa nguồn cho nhiều định dạng khác nhau (SQL, NoSQL, APIs).",
+        "Áp dụng Machine Learning để chuẩn hóa và làm sạch dữ liệu thô, cải thiện chất lượng lên 30%.",
+        "Xây dựng dashboard real-time toàn diện với Apache Superset phục vụ giám sát vận hành.",
+        "Quản lý môi trường Docker hóa cho triển khai và mở rộng dịch vụ liền mạch."
       ]
     },
     {
@@ -224,6 +345,12 @@ const Experience = () => {
         "Implementing distributed scraping clusters with Scrapy and Playwright for massive data extraction.",
         "Engineering cloud-native infrastructure using Kubernetes, Helm, and MinIO for data storage.",
         "Orchestrating complex data workflows with Apache Airflow to ensure 99.9% pipeline reliability."
+      ],
+      bulletsVi: [
+        "Thiết kế pipeline ETL đầu cuối bằng PySpark để xử lý hàng terabyte dữ liệu mỗi ngày.",
+        "Triển khai cụm scraping phân tán với Scrapy và Playwright cho thu thập dữ liệu quy mô lớn.",
+        "Xây dựng hạ tầng cloud-native bằng Kubernetes, Helm và MinIO cho lưu trữ dữ liệu.",
+        "Điều phối luồng dữ liệu phức tạp với Apache Airflow, đảm bảo độ tin cậy pipeline 99.9%."
       ]
     }
   ];
@@ -233,7 +360,7 @@ const Experience = () => {
       <SectionDecor type="dots" />
       <div className="max-w-4xl mx-auto px-8 lg:px-12">
         <div className="mb-20 text-center lg:text-left">
-          <h2 className="text-3xl font-black text-white font-mono uppercase tracking-[0.15em]">Experience</h2>
+          <h2 className="text-3xl font-black text-white font-mono uppercase tracking-[0.15em]">{t.expTitle}</h2>
           <div className="h-1 w-20 bg-blue-600 mt-4 rounded-full mx-auto lg:mx-0"></div>
         </div>
 
@@ -282,7 +409,7 @@ const Experience = () => {
                 </div>
                 
                 <ul className="grid grid-cols-1 gap-4">
-                  {exp.bullets.map((bullet, i) => (
+                  {(lang === 'vi' ? (exp as any).bulletsVi : exp.bullets).map((bullet: string, i: number) => (
                     <li key={i} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
                       <CheckCircle2 size={14} className="text-blue-500/40 mt-1 flex-shrink-0" />
                       <span>{bullet}</span>
@@ -299,6 +426,8 @@ const Experience = () => {
 };
 
 const Skills = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
   const skillGroups = [
     { title: "Big Data", color: "blue", skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio", "Data Build Tool"], icon: <Database size={18}/> },
     { title: "Workflow", color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash" ], icon: <Zap size={18}/> },
@@ -325,8 +454,8 @@ const Skills = () => {
       <SectionDecor type="circles" />
       <div className="max-w-7xl mx-auto px-8 lg:px-12">
         <div className="text-center mb-24">
-          <h2 className="text-5xl font-black text-white font-mono uppercase tracking-tight">Tech Stack</h2>
-          <p className="text-slate-500 font-mono text-xs mt-4 uppercase tracking-[0.4em]">Core Engineering Expertise</p>
+          <h2 className="text-5xl font-black text-white font-mono uppercase tracking-tight">{t.skillsTitle}</h2>
+          <p className="text-slate-500 font-mono text-xs mt-4 uppercase tracking-[0.4em]">{t.skillsSub}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -363,18 +492,32 @@ const Skills = () => {
 };
 
 const Projects = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const handleCopy = (text: string, idx: number) => {
+    navigator.clipboard.writeText(text);
+    setCopiedIdx(idx);
+    setTimeout(() => setCopiedIdx(null), 2000);
+  };
+
   const projects = [
     {
       title: "Multi-Source Data Hub",
+      titleVi: "Hệ thống Data Hub Đa Nguồn",
       desc: "Massive ETL orchestration system that automatically extracts, cleans, and consolidates job market data from multiple major platforms.",
+      descVi: "Hệ thống điều phối ETL quy mô lớn, tự động trích xuất, làm sạch và hợp nhất dữ liệu thị trường việc làm từ nhiều nền tảng lớn.",
       tech: ["PySpark", "Airflow", "Docker", "PostgreSQL", "Trino", "Superset", "Large Language Models"],
       link: "https://github.com/hai-pham-theinfitech/DATN",
       demo: null,
-      image: p1Img 
+      image: p1Img
     },
     {
       title: "Fullstack Job Search Platform",
+      titleVi: "Nền tảng Tìm kiếm Việc làm Fullstack",
       desc: "Intelligence-driven platform providing real-time job insights using highly structured data from internal pipelines.",
+      descVi: "Nền tảng dựa trên dữ liệu thông minh, cung cấp thông tin việc làm real-time từ pipeline dữ liệu nội bộ có cấu trúc cao.",
       tech: ["React.js", "FastAPI", "Postgres", "Redis"],
       link: "https://github.com/phamthanhhai003/JobPortal",
       demo: "https://job-portal-livid-delta.vercel.app",
@@ -382,12 +525,14 @@ const Projects = () => {
     },
     {
       title: "ElectroShop E-Commerce Platform",
+      titleVi: "Nền tảng Thương mại Điện tử ElectroShop",
       desc: "Architected an AI-driven build system: 13 sequential skill files guide Claude Agent through the full SDLC, enforced by 10 bash hooks validating security, business logic, and state transitions at each checkpoint.",
+      descVi: "Thiết kế hệ thống xây dựng AI: 13 skill file tuần tự hướng dẫn Claude Agent qua toàn bộ SDLC, được kiểm soát bởi 10 bash hook xác thực bảo mật, logic nghiệp vụ và chuyển trạng thái tại mỗi checkpoint.",
       tech: ["Node.js", "Express", "MySQL", "Docker", "Gemini AI", "VNPay", "Scrapy"],
       link: "https://github.com/hudeeeeee/skills-hooks-agent",
-      linkLabel: "AI Dev Tools",
+      linkLabel: lang === 'vi' ? 'Công cụ AI Dev' : 'AI Dev Tools',
       demo: "https://github.com/hudeeeeee/website",
-      demoLabel: "Product Source",
+      demoLabel: lang === 'vi' ? 'Mã nguồn' : 'Product Source',
       image: p3Img,
       quickRun: `curl -fsSL https://raw.githubusercontent.com/hudeeeeee/website/main/setup.sh | bash`
     }
@@ -398,7 +543,7 @@ const Projects = () => {
       <SectionDecor type="lines" />
       <div className="max-w-6xl mx-auto px-8 lg:px-12">
         <div className="text-center mb-24">
-          <h2 className="text-4xl font-black text-white font-mono uppercase tracking-tight">Selected Works</h2>
+          <h2 className="text-4xl font-black text-white font-mono uppercase tracking-tight">{t.projectsTitle}</h2>
           <div className="h-1 w-12 bg-blue-600 mx-auto mt-6 rounded-full"></div>
         </div>
         
@@ -430,24 +575,24 @@ const Projects = () => {
                 </div>
                 
                 <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-blue-400 transition-colors tracking-tighter">
-                  {project.title}
+                  {lang === 'vi' ? ((project as any).titleVi ?? project.title) : project.title}
                 </h3>
-                
+
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed font-medium flex-grow">
-                  {project.desc}
+                  {lang === 'vi' ? ((project as any).descVi ?? project.desc) : project.desc}
                 </p>
 
                 {(project as any).quickRun && (
                   <div className="mb-8 rounded-2xl bg-slate-950/80 border border-emerald-500/20 overflow-hidden">
                     <div className="flex items-center justify-between px-5 py-2.5 border-b border-white/5 bg-white/[0.02]">
                       <span className="text-[9px] font-mono font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2">
-                        <TerminalIcon size={11} /> Quick Run — no clone needed ( docker requires )
+                        <TerminalIcon size={11} /> {t.quickRunLabel}
                       </span>
                       <button
-                        onClick={() => navigator.clipboard.writeText((project as any).quickRun)}
+                        onClick={() => handleCopy((project as any).quickRun, idx)}
                         className="text-[8px] font-mono text-slate-500 hover:text-emerald-400 transition-colors uppercase tracking-widest"
                       >
-                        Copy
+                        {copiedIdx === idx ? t.copied : t.copy}
                       </button>
                     </div>
                     <pre className="px-5 py-4 text-[10px] font-mono text-slate-300 leading-relaxed whitespace-pre overflow-x-auto">
@@ -458,12 +603,12 @@ const Projects = () => {
 
                 <div className="mt-auto flex flex-wrap items-center gap-4">
                   <a href={project.link} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
-                    <Github size={16} /> {(project as any).linkLabel ?? 'REPOSITORY'}
+                    <Github size={16} /> {(project as any).linkLabel ?? t.repository}
                   </a>
 
                   {project.demo && (
                     <a href={project.demo} target="_blank" className="flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl font-bold font-mono text-[10px] transition-all shadow-xl hover:-translate-y-1">
-                      <Globe size={16} /> {(project as any).demoLabel ?? 'LIVE DEMO'}
+                      <Globe size={16} /> {(project as any).demoLabel ?? t.liveDemoLabel}
                     </a>
                   )}
                 </div>
@@ -477,6 +622,8 @@ const Projects = () => {
 };
 
 const RecruitmentForm = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -524,7 +671,7 @@ const RecruitmentForm = () => {
       
       <h3 className="text-2xl font-black text-white mb-8 font-mono flex items-center gap-3">
         <Briefcase className="text-blue-500" size={24} />
-        RECRUITMENT FORM
+        {t.formTitle}
       </h3>
 
       {status === 'success' ? (
@@ -532,13 +679,13 @@ const RecruitmentForm = () => {
           <div className="w-20 h-20 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="text-emerald-400" size={40} />
           </div>
-          <h4 className="text-xl font-bold text-white mb-2">Message Sent!</h4>
-          <p className="text-slate-400 text-sm">Thank you for reaching out. I'll get back to you via email soon.</p>
-          <button 
+          <h4 className="text-xl font-bold text-white mb-2">{t.formSuccess}</h4>
+          <p className="text-slate-400 text-sm">{t.formSuccessSub}</p>
+          <button
             onClick={() => setStatus('idle')}
             className="mt-8 text-xs font-mono font-bold text-blue-400 uppercase tracking-widest hover:text-white transition-colors"
           >
-            Send another message
+            {t.formSendAnother}
           </button>
         </div>
       ) : (
@@ -546,13 +693,13 @@ const RecruitmentForm = () => {
           {status === 'error' && (
             <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl flex items-center gap-3 text-rose-400 text-xs mb-6">
               <AlertCircle size={16} />
-              <span>Something went wrong. Please try again or email me directly.</span>
+              <span>{t.formError}</span>
             </div>
           )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Company Name</label>
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">{t.formCompany}</label>
               <div className="relative">
                 <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
                 <input 
@@ -566,7 +713,7 @@ const RecruitmentForm = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Recruiter Name</label>
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">{t.formName}</label>
               <div className="relative">
                 <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
                 <input 
@@ -583,7 +730,7 @@ const RecruitmentForm = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">{t.formEmail}</label>
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
                 <input 
@@ -598,7 +745,7 @@ const RecruitmentForm = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Phone Number</label>
+              <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">{t.formPhone}</label>
               <div className="relative">
                 <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600" size={16} />
                 <input 
@@ -615,13 +762,13 @@ const RecruitmentForm = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">Job Details / Message</label>
-            <textarea 
+            <label className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest ml-1">{t.formMessage}</label>
+            <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               rows={3}
-              placeholder="Tell me more about the opportunity..."
+              placeholder={t.formPlaceholderMessage}
               className="w-full bg-slate-950/50 border border-white/5 rounded-xl py-3.5 px-4 text-sm text-white placeholder:text-slate-700 focus:outline-none focus:border-blue-500/50 transition-all focus:bg-slate-950 resize-none"
             />
           </div>
@@ -634,13 +781,13 @@ const RecruitmentForm = () => {
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
             ) : (
               <>
-                SEND PROPOSAL <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                {t.formSend} <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </>
             )}
           </button>
           
           <p className="text-[9px] text-center text-slate-600 font-mono uppercase tracking-widest">
-            * Data is securely sent to phamthanhhai.dev
+            {t.formNote}
           </p>
         </form>
       )}
@@ -649,6 +796,8 @@ const RecruitmentForm = () => {
 };
 
 const Contact = () => {
+  const { lang } = useLang();
+  const t = translations[lang];
   return (
     <section id="contact" className="py-48 relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
@@ -656,17 +805,17 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto px-8 lg:px-12 relative z-10">
         <div className="text-center mb-24">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[9px] font-mono font-bold uppercase tracking-widest mb-6">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> Available for Hire
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span> {t.contactBadge}
           </div>
-          <h2 className="text-5xl lg:text-7xl font-black text-white mb-6 tracking-tighter uppercase">Let's Connect</h2>
+          <h2 className="text-5xl lg:text-7xl font-black text-white mb-6 tracking-tighter uppercase">{t.contactTitle}</h2>
           <p className="text-slate-500 font-mono text-xs max-w-xl mx-auto uppercase tracking-[0.3em] font-bold">
-            Building the next generation of <span className="text-white">Data Infrastructure</span>
+            {t.contactSub}
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           <div className="lg:col-span-5 space-y-4">
-            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-[0.2em] mb-8">Reach me directly</h4>
+            <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-[0.2em] mb-8">{t.reachMe}</h4>
             
             <a href="mailto:sonhai0803@gmail.com" className="group flex items-center gap-6 p-6 glass rounded-3xl hover:border-blue-500/50 transition-all text-slate-200 shadow-xl">
               <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all">
@@ -715,7 +864,7 @@ const Contact = () => {
         </div>
 
         <div className="mt-32 pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-slate-600 text-[9px] font-mono uppercase tracking-[0.4em] font-black gap-6">
-          <p>© 2024 PHAM THANH HAI // DATA ENGINEER // OPEN TO WORK</p>
+          <p>{t.footer}</p>
           <div className="flex gap-10">
             <a href="https://github.com/phamthanhhai003" target="_blank" className="hover:text-blue-400 transition-colors">GITHUB</a>
             <span className="opacity-20">/</span>
@@ -729,23 +878,43 @@ const Contact = () => {
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const [lang, setLang] = useState<Lang>(() => (localStorage.getItem('lang') as Lang) || null as any);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1200);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (!loading && !lang) setShowPopup(true);
+  }, [loading, lang]);
+
+  const handleLangSelect = (l: Lang) => {
+    localStorage.setItem('lang', l);
+    setLang(l);
+    setShowPopup(false);
+  };
+
+  const handleSetLang = (l: Lang) => {
+    localStorage.setItem('lang', l);
+    setLang(l);
+  };
+
   if (loading) return <Skeleton />;
 
   return (
-    <div className="selection:bg-blue-500/30">
-      <Navbar />
-      <Hero />
-      <Experience />
-      <Skills />
-      <Projects />
-      <Contact />
-    </div>
+    <LanguageContext.Provider value={{ lang: lang ?? 'en', setLang: handleSetLang }}>
+      {showPopup && <LanguagePopup onSelect={handleLangSelect} />}
+      <div className="selection:bg-blue-500/30">
+        <Navbar />
+        <Hero />
+        <Experience />
+        <Skills />
+        <Projects />
+        <Contact />
+      </div>
+    </LanguageContext.Provider>
   );
 };
 
