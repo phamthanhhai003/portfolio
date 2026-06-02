@@ -371,7 +371,7 @@ const Skills = () => {
   const skillGroups = [
     { title: "Big Data",   color: "blue",    skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio", "Data Build Tool"], icon: <Database size={17}/> },
     { title: "Workflow",   color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash"], icon: <Zap size={17}/> },
-    { title: "Extraction", color: "cyan",    skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning"], icon: <Layers size={17}/> },
+    { title: "Extraction", color: "cyan",    skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning", "Boto3", "CDC", "ODBC"], icon: <Layers size={17}/> },
     { title: "Storage",    color: "purple",  skills: ["PostgreSQL", "Redis", "Elastic", "ClickHouse"], icon: <Server size={17}/> },
     { title: "Apps & AI",  color: "amber",   skills: ["FastAPI", "Python OOP", "Django", "Scikit-Learn", "LLM/RAG", "AI Agent (Claude)"], icon: <Atom size={17}/> },
     { title: "Infra",      color: "rose",    skills: ["Kubernetes", "Linux", "Git", "Jenkins"], icon: <Globe size={17}/> }
@@ -818,9 +818,22 @@ const Contact = () => {
   );
 };
 
+const LANG_TTL = 2 * 60 * 60 * 1000; // 2 hours
+
+const getSavedLang = (): Lang | null => {
+  const lang = localStorage.getItem('lang') as Lang | null;
+  const ts = Number(localStorage.getItem('langTs') || 0);
+  if (!lang || Date.now() - ts > LANG_TTL) {
+    localStorage.removeItem('lang');
+    localStorage.removeItem('langTs');
+    return null;
+  }
+  return lang;
+};
+
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [lang, setLang] = useState<Lang>(() => (localStorage.getItem('lang') as Lang) || null as any);
+  const [lang, setLang] = useState<Lang | null>(() => getSavedLang());
   const [showPopup, setShowPopup] = useState(false);
   const [isDark, setIsDark] = useState<boolean>(() => {
     const saved = localStorage.getItem('darkMode');
@@ -836,14 +849,19 @@ const App: React.FC = () => {
     if (!loading && !lang) setShowPopup(true);
   }, [loading, lang]);
 
-  const handleLangSelect = (l: Lang) => {
+  const saveLang = (l: Lang) => {
     localStorage.setItem('lang', l);
+    localStorage.setItem('langTs', String(Date.now()));
+  };
+
+  const handleLangSelect = (l: Lang) => {
+    saveLang(l);
     setLang(l);
     setShowPopup(false);
   };
 
   const handleSetLang = (l: Lang) => {
-    localStorage.setItem('lang', l);
+    saveLang(l);
     setLang(l);
   };
 
