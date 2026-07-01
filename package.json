@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npx playwright install chromium && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,10 +14,11 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@sparticuz/chromium": "^149.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
-    "playwright": "^1.61.1",
+    "puppeteer-core": "^25.2.1",
     "typescript": "~5.6.2",
     "vite": "^6.0.5"
   }
