@@ -28,6 +28,78 @@
         ::-webkit-scrollbar-thumb:hover { background: #1d4ed8; }
 
         ::selection { background: #bfdbfe; color: #1e3a8a; }
+
+        /* Entrance animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .reveal { opacity: 0; }
+        .reveal.visible { animation: fadeUp 0.5s ease-out forwards; }
+
+        .reveal-fade { opacity: 0; }
+        .reveal-fade.visible { animation: fadeIn 0.4s ease-out forwards; }
+
+        /* Stagger grid children */
+        .stagger > * { opacity: 0; transform: translateY(16px); }
+        .stagger.visible > *:nth-child(1) { animation: fadeUp 0.4s 0.04s ease-out forwards; }
+        .stagger.visible > *:nth-child(2) { animation: fadeUp 0.4s 0.08s ease-out forwards; }
+        .stagger.visible > *:nth-child(3) { animation: fadeUp 0.4s 0.12s ease-out forwards; }
+        .stagger.visible > *:nth-child(4) { animation: fadeUp 0.4s 0.16s ease-out forwards; }
+        .stagger.visible > *:nth-child(5) { animation: fadeUp 0.4s 0.20s ease-out forwards; }
+        .stagger.visible > *:nth-child(6) { animation: fadeUp 0.4s 0.24s ease-out forwards; }
+
+        /* Button press feedback */
+        .btn-press { transition: transform 0.1s ease-out; }
+        .btn-press:active { transform: scale(0.97) !important; }
+
+        /* Shimmer pipeline label */
+        .pipeline-shimmer {
+            background: linear-gradient(90deg, #3b82f6 0%, #93c5fd 40%, #3b82f6 60%, #60a5fa 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* Smooth skill tag hover */
+        .skill-tag {
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+        }
+        .skill-tag:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        /* Card hover lift + zoom */
+        .card-hover {
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+        }
+        .dark .card-hover:hover {
+            box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+        }
+
+        /* Panel hover (inside connected card) */
+        .panel-hover {
+            transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+        }
+        .panel-hover:hover {
+            transform: scale(1.01);
+        }
     </style>
 <script type="importmap">
 {
@@ -45,5 +117,24 @@
 <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
+    <script>
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        const observe = () => {
+            document.querySelectorAll('.reveal, .reveal-fade, .stagger').forEach(el => io.observe(el));
+        };
+
+        // Run after React mounts
+        setTimeout(observe, 1400);
+        // Re-run on any DOM change (route-less SPA)
+        new MutationObserver(observe).observe(document.body, { childList: true, subtree: true });
+    </script>
 </body>
 </html>

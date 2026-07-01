@@ -11,6 +11,7 @@ import logoImg from './images/logo.jpg';
 import p1Img from './images/p1.png';
 import p2Img from './images/p2.jpg';
 import p3Img from './images/p3.png';
+import p4Img from './images/p4.png';
 
 import logoAmira from './logo/amira.jpg';
 import logoSolvitech from './logo/solvitech.jpg';
@@ -31,6 +32,7 @@ const translations = {
     skillsTitle: 'Tech Stack',
     skillsSub: 'Core Engineering Expertise',
     projectsTitle: 'Selected Works',
+    sideProjectLabel: 'Side Project',
     repository: 'REPOSITORY',
     liveDemoLabel: 'LIVE DEMO',
     quickRunLabel: 'Quick Run — no clone needed · Docker required',
@@ -65,6 +67,7 @@ const translations = {
     skillsTitle: 'Công nghệ',
     skillsSub: 'Chuyên môn kỹ thuật cốt lõi',
     projectsTitle: 'Dự án nổi bật',
+    sideProjectLabel: 'Dự án phụ',
     repository: 'MÃ NGUỒN',
     liveDemoLabel: 'XEM DEMO',
     quickRunLabel: 'Chạy thử ngay — không cần clone · Yêu cầu Docker',
@@ -143,15 +146,15 @@ const Navbar = ({ isDark, toggleDark }: { isDark: boolean; toggleDark: () => voi
     }`}>
       <div className="max-w-7xl mx-auto px-8 lg:px-12 flex justify-between items-center">
         <div className="flex items-center gap-3 group cursor-pointer">
-          <div className="w-9 h-9 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold shadow-md transition-transform group-hover:rotate-6 text-sm">H</div>
+          <div className="w-9 h-9 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold shadow-md transition-transform duration-300 ease-out group-hover:rotate-6 group-hover:scale-110 text-sm">H</div>
           <span className="font-mono font-bold text-sm tracking-tight text-slate-900 dark:text-white uppercase">Phạm Thanh Hải</span>
         </div>
 
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((item) => (
-            <a key={item.name} href={item.href} className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 uppercase tracking-[0.15em] transition-colors relative group">
+            <a key={item.name} href={item.href} className="text-[11px] font-mono font-bold text-slate-500 dark:text-slate-400 hover:text-blue-700 dark:hover:text-blue-400 uppercase tracking-[0.15em] transition-colors duration-200 relative group">
               {item.name}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-700 dark:bg-blue-400 transition-all group-hover:w-full rounded-full"></span>
+              <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-blue-700 dark:bg-blue-400 transition-all duration-300 ease-out group-hover:w-full rounded-full"></span>
             </a>
           ))}
           <button
@@ -202,14 +205,14 @@ const Hero = () => {
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 dark:bg-blue-950/30 rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-8 lg:px-12 flex flex-col lg:flex-row items-center gap-16 lg:gap-24 relative z-10">
-        <div className="relative group flex-shrink-0">
+        <div className="relative group flex-shrink-0 reveal">
           <div className="relative w-56 h-56 lg:w-72 lg:h-72">
-            <div className="absolute inset-0 rounded-3xl bg-blue-700 translate-x-3 translate-y-3 opacity-10 group-hover:opacity-20 transition-opacity"></div>
-            <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-xl group-hover:shadow-2xl transition-shadow duration-500">
+            <div className="absolute inset-0 rounded-3xl bg-blue-700 translate-x-3 translate-y-3 opacity-10 group-hover:opacity-25 group-hover:translate-x-4 group-hover:translate-y-4 transition-all duration-300 ease-out"></div>
+            <div className="relative w-full h-full rounded-3xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-xl group-hover:shadow-2xl transition-shadow duration-400">
               <img
                 src={logoImg}
                 alt="Pham Thanh Hai"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-108"
                 onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/400x400/1d4ed8/ffffff?text=PTH"; }}
               />
             </div>
@@ -219,7 +222,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left reveal">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-400 text-[9px] font-mono font-bold uppercase tracking-[0.25em] mb-6">
             <Cpu size={11} /> {t.badge}
           </div>
@@ -241,10 +244,10 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            <a href="#contact" className="px-8 py-3.5 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 transition-all shadow-md shadow-blue-200 dark:shadow-blue-900/30 hover:-translate-y-0.5 text-sm">
+            <a href="#contact" className="btn-press px-8 py-3.5 bg-blue-700 text-white font-bold rounded-xl hover:bg-blue-800 transition-[background-color,transform,box-shadow] duration-200 ease-out shadow-md shadow-blue-200 dark:shadow-blue-900/30 hover:-translate-y-1 hover:shadow-lg text-sm">
               {t.hireMe}
             </a>
-            <a href="https://github.com/phamthanhhai003" target="_blank" className="px-8 py-3.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-all flex items-center gap-2 text-sm">
+            <a href="https://github.com/phamthanhhai003" target="_blank" className="btn-press px-8 py-3.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-1 flex items-center gap-2 text-sm">
               <Github size={17} /> {t.myGithub}
             </a>
           </div>
@@ -323,21 +326,21 @@ const Experience = () => {
           <div className="absolute left-[7px] top-2 bottom-2 w-px bg-blue-100 dark:bg-blue-900"></div>
 
           {experiences.map((exp, idx) => (
-            <div key={idx} className="relative">
-              <div className={`absolute -left-[35px] top-7 w-4 h-4 rounded-full border-2 bg-white dark:bg-slate-900 z-10 transition-all ${exp.isOnboard ? 'border-blue-700 dark:border-blue-400' : 'border-slate-300 dark:border-slate-600'}`}>
+            <div key={idx} className="relative reveal">
+              <div className={`absolute -left-[35px] top-7 w-4 h-4 rounded-full border-2 bg-white dark:bg-slate-900 z-10 transition-all duration-200 ${exp.isOnboard ? 'border-blue-700 dark:border-blue-400' : 'border-slate-300 dark:border-slate-600'}`}>
                 {exp.isOnboard && <div className="absolute inset-[3px] rounded-full bg-blue-700 dark:bg-blue-400 animate-pulse"></div>}
               </div>
 
-              <div className={`bg-white dark:bg-slate-800 border rounded-2xl p-7 shadow-sm hover:shadow-md transition-shadow duration-300 ${exp.isOnboard ? 'border-blue-200 dark:border-blue-700 ring-1 ring-blue-100 dark:ring-blue-900' : 'border-slate-200 dark:border-slate-700'}`}>
+              <div className={`card-hover group bg-white dark:bg-slate-800 border rounded-2xl p-7 shadow-sm ${exp.isOnboard ? 'border-blue-200 dark:border-blue-700 ring-1 ring-blue-100 dark:ring-blue-900' : 'border-slate-200 dark:border-slate-700'}`}>
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 flex-shrink-0 shadow-sm bg-white dark:bg-slate-700">
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 flex-shrink-0 shadow-sm bg-white dark:bg-slate-700 transition-transform duration-300 ease-out group-hover:scale-110 group-hover:shadow-md">
                       <img src={exp.logo} alt={exp.company} className="w-full h-full object-cover"
                         onError={(e) => { e.currentTarget.src = `https://api.dicebear.com/7.x/initials/svg?seed=${exp.company}&backgroundColor=dbeafe`; }} />
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <h3 className="text-lg font-bold text-slate-900 dark:text-white">{exp.role}</h3>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white transition-colors duration-200 group-hover:text-blue-700 dark:group-hover:text-blue-400">{exp.role}</h3>
                         {exp.isOnboard && <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse flex-shrink-0"></span>}
                       </div>
                       <p className="text-blue-700 dark:text-blue-400 font-mono text-[11px] font-bold uppercase tracking-wider mt-0.5">{exp.company}</p>
@@ -350,8 +353,8 @@ const Experience = () => {
 
                 <ul className="space-y-2.5">
                   {(lang === 'vi' ? (exp as any).bulletsVi : exp.bullets).map((bullet: string, i: number) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                      <CheckCircle2 size={14} className="text-blue-400 dark:text-blue-500 mt-0.5 flex-shrink-0" />
+                    <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-slate-400 text-sm leading-relaxed transition-colors duration-200 group-hover:text-slate-700 dark:group-hover:text-slate-300">
+                      <CheckCircle2 size={14} className="text-blue-400 dark:text-blue-500 mt-0.5 flex-shrink-0 transition-colors duration-200 group-hover:text-blue-600 dark:group-hover:text-blue-400" />
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -369,10 +372,10 @@ const Skills = () => {
   const { lang } = useLang();
   const t = translations[lang];
   const skillGroups = [
-    { title: "Big Data",   color: "blue",    skills: ["PySpark", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio", "Data Build Tool"], icon: <Database size={17}/> },
+    { title: "Big Data",   color: "blue",    skills: ["PySpark", "Spark Streaming", "Delta Lake", "Trino", "MinIO", "HDFS", "Delta Format", "Iceberg", "Dremio", "Data Build Tool"], icon: <Database size={17}/> },
     { title: "Workflow",   color: "emerald", skills: ["Airflow", "Kafka", "Docker", "CI/CD", "Bash"], icon: <Zap size={17}/> },
     { title: "Extraction", color: "cyan",    skills: ["Scrapy", "Playwright", "Selenium", "Proxy", "Data Cleaning", "Boto3", "CDC", "ODBC"], icon: <Layers size={17}/> },
-    { title: "Storage",    color: "purple",  skills: ["PostgreSQL", "Redis", "Elastic", "ClickHouse"], icon: <Server size={17}/> },
+    { title: "Storage",    color: "purple",  skills: ["PostgreSQL", "T24 DB", "Redis", "Elastic", "ClickHouse"], icon: <Server size={17}/> },
     { title: "Apps & AI",  color: "amber",   skills: ["FastAPI", "Python OOP", "Django", "Scikit-Learn", "LLM/RAG", "AI Agent (Claude)"], icon: <Atom size={17}/> },
     { title: "Infra",      color: "rose",    skills: ["Kubernetes", "Linux", "Git", "Jenkins"], icon: <Globe size={17}/> }
   ];
@@ -397,11 +400,11 @@ const Skills = () => {
           <div className="h-1 w-12 bg-blue-700 dark:bg-blue-500 mx-auto mt-4 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="stagger grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {skillGroups.map((group, idx) => {
             const s = C[group.color];
             return (
-              <div key={idx} className={`bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 ${s.border} rounded-2xl p-6 hover:shadow-md dark:hover:shadow-slate-900 transition-shadow duration-300`}>
+              <div key={idx} className={`card-hover bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 border-l-4 ${s.border} rounded-2xl p-6`}>
                 <div className="flex justify-between items-center mb-5">
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white font-mono flex items-center gap-2.5">
                     <span className={`w-2.5 h-2.5 rounded-full flex-shrink-0 ${s.dot}`}></span>
@@ -411,7 +414,7 @@ const Skills = () => {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {group.skills.map((skill, i) => (
-                    <span key={i} className={`px-2.5 py-1 rounded-lg border text-[10px] font-mono font-semibold ${s.tag}`}>
+                    <span key={i} className={`skill-tag px-2.5 py-1 rounded-lg border text-[10px] font-mono font-semibold ${s.tag}`}>
                       {skill}
                     </span>
                   ))}
@@ -452,6 +455,13 @@ const Projects = () => {
       link: "https://github.com/phamthanhhai003/JobPortal", demo: "https://job-portal-livid-delta.vercel.app", image: p2Img
     },
     {
+      title: "DWH Kubernetes Deployment", titleVi: "Triển khai Data Warehouse trên Kubernetes",
+      desc: "Full data warehouse stack deployed on Kubernetes via Helm: MSSQL CDC (Debezium) into Kafka (Strimzi), Spark + Hive Metastore (Iceberg) processing to MinIO, queried by Dremio, orchestrated by Airflow, with ELK logging and Jenkins CI/CD. Enforces strict layered deployment order with an automated deploy.sh script.",
+      descVi: "Triển khai toàn bộ stack data warehouse trên Kubernetes bằng Helm: MSSQL CDC (Debezium) đẩy vào Kafka (Strimzi), Spark + Hive Metastore (Iceberg) xử lý dữ liệu ghi vào MinIO, truy vấn bằng Dremio, điều phối bởi Airflow, kèm logging ELK và CI/CD Jenkins. Bắt buộc triển khai đúng thứ tự tầng qua script deploy.sh tự động.",
+      tech: ["Kubernetes", "Helm", "Kafka", "Spark", "Hive Metastore", "Iceberg", "MinIO", "Dremio", "Airflow", "ELK", "Jenkins", "Debezium CDC"],
+      link: "https://github.com/phamthanhhai003/dwh-deployments", demo: null, image: p4Img
+    },
+    {
       title: "ElectroShop E-Commerce Platform", titleVi: "Nền tảng Thương mại Điện tử ElectroShop",
       desc: "Architected an AI-driven build system: 13 sequential skill files guide Claude Agent through the full SDLC, enforced by 10 bash hooks validating security, business logic, and state transitions at each checkpoint.",
       descVi: "Thiết kế hệ thống xây dựng AI: 13 skill file tuần tự hướng dẫn Claude Agent qua toàn bộ SDLC, được kiểm soát bởi 10 bash hook xác thực bảo mật, logic nghiệp vụ và chuyển trạng thái tại mỗi checkpoint.",
@@ -468,6 +478,7 @@ const Projects = () => {
   const p0 = projects[0];
   const p1 = projects[1];
   const p2 = projects[2];
+  const p3 = projects[3];
 
   return (
     <section id="projects" className="py-24 bg-slate-50 dark:bg-slate-900">
@@ -481,10 +492,10 @@ const Projects = () => {
         <div className="flex flex-col gap-7">
 
           {/* Connected card: Data Hub → Job Search Platform */}
-          <div className="bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-slate-900 transition-shadow duration-300">
+          <div className="card-hover reveal bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 rounded-2xl overflow-hidden shadow-sm">
             {/* Pipeline header */}
             <div className="flex items-center gap-3 px-7 py-3.5 bg-blue-50 dark:bg-blue-900/30 border-b border-blue-200 dark:border-blue-700">
-              <span className="text-[9px] font-mono font-black text-blue-700 dark:text-blue-400 uppercase tracking-[0.3em]">
+              <span className="pipeline-shimmer text-[9px] font-mono font-black uppercase tracking-[0.3em]">
                 {lang === 'vi' ? 'Hệ thống End-to-End · Thu thập → Hiển thị' : 'End-to-End Pipeline · Collect → Serve'}
               </span>
               <div className="flex-1 flex items-center gap-1 overflow-hidden">
@@ -497,9 +508,9 @@ const Projects = () => {
             {/* Two screenshots side by side */}
             <div className="flex flex-col lg:flex-row">
               {/* Left: Data Hub */}
-              <div className="flex-1 flex flex-col">
+              <div className="panel-hover group/left flex-1 flex flex-col transition-colors duration-300 hover:bg-blue-50/30 dark:hover:bg-blue-900/10">
                 <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-700">
-                  <img src={p0.image} alt={p0.title} className="w-full h-full object-cover"
+                  <img src={p0.image} alt={p0.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/left:scale-105"
                     onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Data+Hub"; }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                   <div className="absolute bottom-3 left-4 flex flex-wrap gap-1">
@@ -514,13 +525,13 @@ const Projects = () => {
                       {lang === 'vi' ? 'Nguồn dữ liệu' : 'Data Source'}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200 group-hover/left:text-blue-700 dark:group-hover/left:text-blue-400">
                     {lang === 'vi' ? p0.titleVi : p0.title}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow mb-4">
                     {lang === 'vi' ? p0.descVi : p0.desc}
                   </p>
-                  <a href={p0.link} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-all shadow-sm w-fit">
+                  <a href={p0.link} target="_blank" className="btn-press inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-[background-color,transform] duration-200 ease-out shadow-sm w-fit hover:-translate-y-0.5">
                     <Github size={12} /> {t.repository}
                   </a>
                 </div>
@@ -546,9 +557,9 @@ const Projects = () => {
               </div>
 
               {/* Right: Job Search Platform */}
-              <div className="flex-1 flex flex-col">
+              <div className="panel-hover group/right flex-1 flex flex-col transition-colors duration-300 hover:bg-blue-50/30 dark:hover:bg-blue-900/10">
                 <div className="relative h-48 overflow-hidden bg-slate-100 dark:bg-slate-700">
-                  <img src={p1.image} alt={p1.title} className="w-full h-full object-cover"
+                  <img src={p1.image} alt={p1.title} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/right:scale-105"
                     onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Job+Portal"; }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
                   <div className="absolute bottom-3 left-4 flex flex-wrap gap-1">
@@ -563,18 +574,18 @@ const Projects = () => {
                       {lang === 'vi' ? 'Sản phẩm' : 'Product'}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-200 group-hover/right:text-blue-700 dark:group-hover/right:text-blue-400">
                     {lang === 'vi' ? p1.titleVi : p1.title}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed flex-grow mb-4">
                     {lang === 'vi' ? p1.descVi : p1.desc}
                   </p>
                   <div className="flex gap-3">
-                    <a href={p1.link} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-all shadow-sm">
+                    <a href={p1.link} target="_blank" className="btn-press inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-[background-color,transform] duration-200 ease-out shadow-sm hover:-translate-y-0.5">
                       <Github size={12} /> {t.repository}
                     </a>
                     {p1.demo && (
-                      <a href={p1.demo} target="_blank" className="inline-flex items-center gap-2 px-4 py-2 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-all">
+                      <a href={p1.demo} target="_blank" className="btn-press inline-flex items-center gap-2 px-4 py-2 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-0.5">
                         <Globe size={12} /> {t.liveDemoLabel}
                       </a>
                     )}
@@ -584,15 +595,15 @@ const Projects = () => {
             </div>
           </div>
 
-          {/* ElectroShop card — standalone */}
+          {/* DWH Kubernetes Deployment card — standalone */}
           {(() => {
             const project = p2;
             const idx = 2;
             return (
-            <div className="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:hover:shadow-slate-900 transition-shadow duration-300 flex flex-col lg:flex-row">
+            <div className="card-hover reveal group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm flex flex-col lg:flex-row">
               <div className="relative lg:w-80 h-52 lg:h-auto overflow-hidden bg-slate-100 dark:bg-slate-700 flex-shrink-0">
                 <img src={project.image} alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Project"; }} />
                 <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/60 via-transparent to-transparent"></div>
                 <div className="absolute bottom-3 left-4 lg:bottom-4 flex flex-wrap gap-1.5">
@@ -628,11 +639,58 @@ const Projects = () => {
                 )}
 
                 <div className="flex flex-wrap items-center gap-3">
-                  <a href={project.link} target="_blank" className="flex items-center gap-2 px-5 py-2.5 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-all shadow-sm hover:-translate-y-0.5">
+                  <a href={project.link} target="_blank" className="btn-press flex items-center gap-2 px-5 py-2.5 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-[background-color,transform] duration-200 ease-out shadow-sm hover:-translate-y-1">
                     <Github size={13} /> {(project as any).linkLabel ?? t.repository}
                   </a>
                   {project.demo && (
-                    <a href={project.demo} target="_blank" className="flex items-center gap-2 px-5 py-2.5 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-all hover:-translate-y-0.5">
+                    <a href={project.demo} target="_blank" className="btn-press flex items-center gap-2 px-5 py-2.5 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-1">
+                      <Globe size={13} /> {(project as any).demoLabel ?? t.liveDemoLabel}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+            );
+          })()}
+
+          <div className="flex items-center gap-4 pt-4">
+            <div className="h-px flex-grow bg-slate-200 dark:bg-slate-700"></div>
+            <span className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em]">{t.sideProjectLabel}</span>
+            <div className="h-px flex-grow bg-slate-200 dark:bg-slate-700"></div>
+          </div>
+
+          {/* ElectroShop card — standalone */}
+          {(() => {
+            const project = p3;
+            const idx = 3;
+            return (
+            <div className="card-hover reveal group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm flex flex-col lg:flex-row">
+              <div className="relative lg:w-80 h-52 lg:h-auto overflow-hidden bg-slate-100 dark:bg-slate-700 flex-shrink-0">
+                <img src={project.image} alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/600x400/dbeafe/1e40af?text=Project"; }} />
+                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-900/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-3 left-4 lg:bottom-4 flex flex-wrap gap-1.5">
+                  {project.tech.map((tech, i) => (
+                    <span key={i} className="text-[7px] font-mono font-bold text-white bg-slate-900/70 backdrop-blur-sm px-1.5 py-0.5 rounded uppercase border border-white/10">{tech}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-7 flex flex-col flex-grow">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
+                  {lang === 'vi' ? ((project as any).titleVi ?? project.title) : project.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed flex-grow">
+                  {lang === 'vi' ? ((project as any).descVi ?? project.desc) : project.desc}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <a href={project.link} target="_blank" className="btn-press flex items-center gap-2 px-5 py-2.5 bg-blue-700 text-white hover:bg-blue-800 rounded-xl font-bold font-mono text-[10px] transition-[background-color,transform] duration-200 ease-out shadow-sm hover:-translate-y-1">
+                    <Github size={13} /> {(project as any).linkLabel ?? t.repository}
+                  </a>
+                  {project.demo && (
+                    <a href={project.demo} target="_blank" className="btn-press flex items-center gap-2 px-5 py-2.5 border-2 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 hover:border-blue-300 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400 rounded-xl font-bold font-mono text-[10px] transition-[border-color,color,transform] duration-200 ease-out hover:-translate-y-1">
                       <Globe size={13} /> {(project as any).demoLabel ?? t.liveDemoLabel}
                     </a>
                   )}
@@ -747,7 +805,7 @@ const RecruitmentForm = () => {
           </div>
 
           <button disabled={status === 'sending'}
-            className="w-full py-3.5 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-blue-100 dark:shadow-blue-900/20 text-sm">
+            className="btn-press w-full py-3.5 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl transition-[background-color,transform] duration-200 ease-out flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed shadow-md shadow-blue-100 dark:shadow-blue-900/20 hover:-translate-y-0.5 text-sm">
             {status === 'sending'
               ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
               : <>{t.formSend} <Send size={15} /></>
@@ -788,8 +846,8 @@ const Contact = () => {
             <p className="text-[10px] font-mono font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-5">{t.reachMe}</p>
             {contacts.map((item, i) => (
               <a key={i} href={item.href} target={(item as any).target}
-                className="group flex items-center gap-4 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-md dark:hover:shadow-slate-900 transition-all shadow-sm">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:bg-blue-700 group-hover:text-white group-hover:border-blue-700 dark:group-hover:bg-blue-600 dark:group-hover:border-blue-600 transition-all flex-shrink-0">
+                className="group flex items-center gap-4 p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-200 dark:hover:border-blue-600 hover:-translate-x-0.5 hover:shadow-md transition-[transform,border-color,box-shadow] duration-200 ease-out shadow-sm">
+                <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:bg-blue-700 group-hover:text-white group-hover:border-blue-700 dark:group-hover:bg-blue-600 dark:group-hover:border-blue-600 transition-[background-color,color,border-color] duration-200 ease-out flex-shrink-0">
                   {item.icon}
                 </div>
                 <div>
