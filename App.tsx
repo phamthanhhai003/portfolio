@@ -889,8 +889,11 @@ const getSavedLang = (): Lang | null => {
   return lang;
 };
 
+const wasPrerendered = typeof document !== 'undefined'
+  && document.getElementById('root')?.dataset.prerendered === 'true';
+
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!wasPrerendered);
   const [lang, setLang] = useState<Lang | null>(() => getSavedLang());
   const [showPopup, setShowPopup] = useState(false);
   const [isDark, setIsDark] = useState<boolean>(() => {
